@@ -1,0 +1,12 @@
+<html lang="en">
+  <%- include('core/head', { title }) %>
+  <body>
+    <p>Welcome</p>
+    <p>Pages</p>
+    <ul>
+      <% links.forEach(link => { %>
+        <li><a href="<%- link.path %>"><p><%- link.name %></p></a></li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

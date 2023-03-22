@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+dist
+yarn-error.log
+docs/**
+!.keep
+
+# Ingored Docs
+_unsorted
+sprinklr-nft
+details.json

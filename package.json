@@ -1,0 +1,16 @@
+{
+  "name": "jake-docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/ejs": "^3.1.2",
+    "@types/node": "^18.15.5",
+    "ejs": "^3.1.9",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  },
+  "scripts": {
+    "build": "ts-node generator/index.ts"
+  }
+}

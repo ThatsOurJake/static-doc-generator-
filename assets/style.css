@@ -1,0 +1,41 @@
+* {
+  padding: 0;
+  margin: 0 auto;
+
+  font-family: 'Nunito', sans-serif;
+}
+
+.json-viewer span, pre code {
+  font-family: 'Source Code Pro', monospace;
+}
+
+.json-viewer {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.json-viewer .json-nested-item-selector {
+  cursor: pointer;
+  user-select: none;
+}
+
+.json-viewer .json-nested-item-selector::before {
+  content: "➕";
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.json-viewer .json-nested-item-showing::before {
+  content: "➖";
+}
+
+.json-viewer .json-nested-item {
+  display: none;
+  list-style-type: none;
+  padding-inline-start: 2em;
+}
+
+.json-viewer .json-nested-item-show {
+  display: block;
+}

@@ -1,0 +1,25 @@
+<html lang="en">
+  <%- include('core/head', { title: (details && details.name) || title }) %>
+  <body>
+    <% if (details) { %>
+      <p><%= details.name %></p>
+      <p><%= details.description %></p>
+    <% } else { %>
+      <p><%= title %></p>
+    <% } %>
+    <a href="/"><p>🏠 Home</p></a>
+    <% if (links.length > 0) { %>
+      <p>Sub Pages</p>
+    <% } %>
+    <ul>
+      <% links.forEach(link => { %>
+        <li><a href="<%- link.path %>"><p><%- link.name %></p></a></li>
+      <% }); %>
+    </ul>
+    <ul>
+      <% files.forEach(file => { %>
+        <li><a href="/viewer?file=<%= encodeURIComponent(file.path) %>"><p><%- file.name %></p></a></li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
