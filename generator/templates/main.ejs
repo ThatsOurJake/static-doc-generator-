@@ -1,12 +1,13 @@
 <html lang="en">
   <%- include('core/head', { title }) %>
   <body>
-    <p>Welcome</p>
-    <p>Pages</p>
-    <ul>
-      <% links.forEach(link => { %>
-        <li><a href="<%- link.path %>"><p><%- link.name %></p></a></li>
-      <% }); %>
-    </ul>
+    <%- include('core/header') %>
+    <div class="wrapper">
+      <%- include('core/nav-bar', { showHome: false }) %>
+      <div class="content">
+        <img src="https://sdk.bitmoji.com/render/panel/a7161b2e-c41a-4b71-a610-4dbb0184c2be-dae924a3-30cf-4be0-898e-39939da96209-v1.png?transparent=1&palette=1" class="u-block-center"></img>
+        <p>Welcome to Jakes Documentation - This static site contains all the documentation that Jake has saved on their machine for various different pieces of work. Certain documents can be viewed within the site or if not supported be downloaded externally.</p>
+      </div>
+    </div>
   </body>
 </html>

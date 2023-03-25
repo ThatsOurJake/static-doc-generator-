@@ -1,25 +1,27 @@
 <html lang="en">
   <%- include('core/head', { title: (details && details.name) || title }) %>
   <body>
-    <% if (details) { %>
-      <p><%= details.name %></p>
-      <p><%= details.description %></p>
-    <% } else { %>
-      <p><%= title %></p>
-    <% } %>
-    <a href="/"><p>🏠 Home</p></a>
-    <% if (links.length > 0) { %>
-      <p>Sub Pages</p>
-    <% } %>
-    <ul>
-      <% links.forEach(link => { %>
-        <li><a href="<%- link.path %>"><p><%- link.name %></p></a></li>
-      <% }); %>
-    </ul>
-    <ul>
-      <% files.forEach(file => { %>
-        <li><a href="/viewer?file=<%= encodeURIComponent(file.path) %>"><p><%- file.name %></p></a></li>
-      <% }); %>
-    </ul>
+    <%- include('core/header') %>
+    <div class="wrapper">
+      <%- include('core/nav-bar', { showHome: true }) %>
+      <div class="content">
+        <div class="page-header">
+          <% if (details) { %>
+            <p class="page-title"><%= details.name %></p>
+            <p class="page-description"><%= details.description %></p>
+          <% } else { %>
+            <p class="page-title"><%= title %></p>
+          <% } %>
+        </div>
+        <% if (files.length > 0) { %>
+          <p><b>Files:</b></p>
+        <% } %>
+        <ul class="file-links">
+          <% files.forEach(file => { %>
+            <li><a href="/viewer?file=<%= encodeURIComponent(file.path) %>"><p><%- file.name %></p></a></li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
   </body>
 </html>

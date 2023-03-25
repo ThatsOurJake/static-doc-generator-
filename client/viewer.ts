@@ -1,10 +1,27 @@
 type renderTypes = 'image' | 'iframe' | 'json' | 'text' | null;
 
-const renderImage = (fileUrl: string) => {
+const renderDownloadLink = (fileUrl: string, fileName: string) => {
   const container = document.getElementById('container')!;
+  const paragraph = document.createElement('p');
+  paragraph.classList.add('u-text-center', 'download-link');
+
+  const downloadLink = document.createElement('a');
+  downloadLink.href = fileUrl;
+  downloadLink.download = fileName;
+  downloadLink.innerText = `Download '${fileName}'`;
+
+  paragraph.append(downloadLink);
+  container.appendChild(paragraph);
+};
+
+const renderImage = (fileUrl: string, fileName: string) => {
+  const container = document.getElementById('container')!;
+  
+  renderDownloadLink(fileUrl, fileName);
 
   const image = document.createElement('img');
   image.src = fileUrl;
+  image.classList.add('u-block-center');
 
   container.appendChild(image);
 };
@@ -13,16 +30,19 @@ const renderJSON = (fileUrl: string, fileName: string) => {
   const container = document.getElementById('container')!;
 
   const KeyValueEle = (key: string, value: string) => {
-    const ele = document.createElement('span');
+    const ele = document.createElement('p');
 
     const keyEle = document.createElement('span');
+    keyEle.classList.add('f-color-blue');
     keyEle.textContent = key;
 
     const separator = document.createElement('span');
+    separator.classList.add('separator')
     separator.textContent = `:`;
 
     const valueEle = document.createElement('span');
     valueEle.textContent = value;
+    valueEle.classList.add('f-color-green');
 
     ele.append(keyEle, separator, valueEle);
 
@@ -30,7 +50,8 @@ const renderJSON = (fileUrl: string, fileName: string) => {
   };
 
   const DataEle = (key: string, count: number, isArray: boolean) => {
-    const ele = document.createElement('span');
+    const ele = document.createElement('p');
+    ele.classList.add('f-color-purple');
     ele.addEventListener('click', () => {
       ele.classList.toggle('json-nested-item-showing');
       ele.parentNode?.querySelectorAll(':scope > .json-nested-item').forEach(x => x.classList.toggle('json-nested-item-show'));
@@ -96,12 +117,16 @@ const renderJSON = (fileUrl: string, fileName: string) => {
     const root = document.createElement('ul');
     root.classList.add('json-viewer');
 
+    const controls = document.createElement('div');
+    controls.classList.add('controls');
+
     const showAllEle = document.createElement('p');
     showAllEle.innerText = 'Show all properties';
     showAllEle.addEventListener('click', () => root.querySelectorAll('.json-nested-item-selector').forEach(x => {
       x.classList.add('json-nested-item-showing');
       x.parentNode?.querySelectorAll(':scope > .json-nested-item').forEach(x => x.classList.add('json-nested-item-show'));
     }));
+    controls.append(showAllEle);
 
     const hideAllEle = document.createElement('p');
     hideAllEle.innerText = 'Hide all properties';
@@ -109,10 +134,12 @@ const renderJSON = (fileUrl: string, fileName: string) => {
       x.classList.remove('json-nested-item-showing');
       x.parentNode?.querySelectorAll(':scope > .json-nested-item').forEach(x => x.classList.remove('json-nested-item-show'));
     }));
+    controls.append(hideAllEle);
+
+    renderDownloadLink(fileUrl, fileName);
 
     container.append(
-      showAllEle,
-      hideAllEle,
+      controls,
       render(
         root,
         Array.isArray(data) ? 'array' : 'object',
@@ -121,11 +148,14 @@ const renderJSON = (fileUrl: string, fileName: string) => {
   });
 };
 
-const renderIFrame = (fileUrl: string) => {
+const renderIFrame = (fileUrl: string, fileName: string) => {
   const container = document.getElementById('container')!;
+
+  renderDownloadLink(fileUrl, fileName);
 
   const iframe = document.createElement('iframe');
   iframe.src = fileUrl;
+  iframe.classList.add('u-block-center');
 
   container.appendChild(iframe);
 };
@@ -160,10 +190,14 @@ const renderText = (fileUrl: string, fileName: string) => {
       return;
     }
 
-    const root = document.createElement('pre');
+    renderDownloadLink(fileUrl, fileName);
+
+    const root = document.createElement('div');
+    const pre = document.createElement('pre');
     const code = document.createElement('code');
     code.innerText = data;
-    root.appendChild(code);
+    pre.appendChild(code);
+    root.appendChild(pre);
     container.appendChild(root);
   });
 };
@@ -209,9 +243,9 @@ const render = () => {
 
   switch(fileType) {
     case 'image':
-      return renderImage(file);
+      return renderImage(file, fileName);
     case 'iframe':
-      return renderIFrame(file);
+      return renderIFrame(file, fileName);
     case 'json':
       return renderJSON(file, fileName);
     case 'text':

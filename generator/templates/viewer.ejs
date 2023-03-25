@@ -1,8 +1,11 @@
 <html lang="en">
   <%- include('core/head', { title }) %>
   <body>
-    <p>Viewer</p>
-    <div id="container"></div>
+    <%- include('core/header') %>
+    <div class="viewer-wrapper">
+      <p class="header"><b>File Viewer</b></p>
+      <div id="container"></div>
+    </div>
   </body>
   <script src="/assets/viewer.js"></script>
 </html>

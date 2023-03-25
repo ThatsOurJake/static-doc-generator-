@@ -40,7 +40,7 @@ import saveTemplate from './utils/save-template';
 
   console.log('Generating Home Page');
   await saveTemplate(path.join(templatesDir, 'main.ejs'), {
-    title: 'Jake Documentation',
+    title: 'Jakes Documentation',
     links: directories.map(x => ({ name: x.name, path: x.relativePath }))
   }, path.join(distDir, 'index.html'));
 
