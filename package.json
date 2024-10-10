@@ -12,5 +12,8 @@
   },
   "scripts": {
     "build": "ts-node generator/index.ts"
+  },
+  "dependencies": {
+    "marked-highlight": "^2.1.4"
   }
 }
