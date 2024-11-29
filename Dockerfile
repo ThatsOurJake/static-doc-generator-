@@ -1,4 +1,4 @@
-FROM registry.fluidcloud.bskyb.com/online-service/node:18.12.0-alpine as build
+FROM registry.fluidcloud.bskyb.com/online-service/node:22.7.0-alpine3.20 AS build
 WORKDIR /build
 COPY . .
 RUN yarn install --frozen-lock
