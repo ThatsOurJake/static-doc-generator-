@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import typescript from 'typescript';
-import compile from './compiler';
 
+import compile from './compiler';
 import getDirs, { Directory } from './utils/get-dirs';
 import renderPage from './utils/render-page';
 import saveTemplate from './utils/save-template';
+import parseDetailsFile from './utils/parse-details-file';
+import getNotifications from './utils/get-notifications';
 
 (async () => {
   const docsDir = path.resolve('docs');
@@ -39,9 +40,15 @@ import saveTemplate from './utils/save-template';
   await generatePages(directories);
 
   console.log('Generating Home Page');
+  const homepageNotifications = getNotifications(docsDir);
   await saveTemplate(path.join(templatesDir, 'main.ejs'), {
     title: 'Jakes Documentation',
-    links: directories.map(x => ({ name: x.name, path: x.relativePath }))
+    links: directories.map(x => {
+      const dirDetails = parseDetailsFile(x.parent);
+
+      return { name: dirDetails?.name || x.name, path: x.relativePath };
+    }),
+    notifications: homepageNotifications,
   }, path.join(distDir, 'index.html'));
 
   console.log('Generating File Viewer');

@@ -80,7 +80,7 @@ body {
 }
 
 .wrapper .nav-bar {
-  padding: 8px;
+  padding: 8px 12px;
   width: 100%;
   border-right: 2px solid #e3e3e3;
   background-color: #f9f9f9;
@@ -91,8 +91,14 @@ body {
   list-style: none;
 }
 
+.wrapper .nav-bar .nav-bar-home {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
 .wrapper .content {
-  padding: 8px;
+  padding: 12px 15%;
   width: 100%;
   grid-area: 1 / 2 / 2 / 3;
 }
@@ -149,9 +155,11 @@ body {
 }
 
 .content .page-header .page-title {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   text-decoration: underline;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
 #container {
@@ -227,4 +235,28 @@ body {
 
 .f-color-purple {
   color: #9C27B0;
+}
+
+.notification {
+  margin-top: 12px;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: #ffc0d5;
+  border: 1px solid #ff78a5;
+}
+
+.notification .notification-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 1.1rem;
+}
+
+.notification .notification-description {
+  font-size: 0.9rem;
+}
+
+.notification .notification-date {
+  font-size: 0.8rem;
+  color: #757575;
 }
