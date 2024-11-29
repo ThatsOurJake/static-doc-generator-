@@ -2,7 +2,7 @@
   <p class="nav-bar-header">Documentation</p>
   <ul>
     <% if (showHome) { %>
-      <li><a href="/"><p>Home</p></a></li>
+      <li><a href="/"><p class="nav-bar-home">🏠 Back to Home</p></a></li>
     <% } %>
     <% links.forEach(link => { %>
       <li><a href="<%- link.path %>"><p><%- link.name %></p></a></li>

@@ -1,23 +1,10 @@
 import path from 'path';
 import fs from 'fs';
+
+import type { Directory } from './get-dirs';
 import saveTemplate from './save-template';
-import { type Directory } from './get-dirs';
 import getFiles from './get-files';
-
-interface Details {
-  name: string;
-  description?: string;
-}
-
-const parseDetailsFile = (dir: string): Details | null  => {
-  const loc = path.join(dir, 'details.json');
-
-  if (!fs.existsSync(loc)) {
-    return null;
-  }
-
-  return JSON.parse(fs.readFileSync(loc).toString());
-}
+import parseDetailsFile from './parse-details-file';
 
 const renderPage = async (directory: Directory, distDir: string, templatesDir: string) => {
   const outputDir = path.join(distDir, directory.relativePath);
@@ -32,13 +19,18 @@ const renderPage = async (directory: Directory, distDir: string, templatesDir: s
     fs.copyFileSync(x.path, path.join(outputDir, x.name));
   });
 
+  const details = parseDetailsFile(directory.parent);
+
   await saveTemplate(path.join(templatesDir, 'page.ejs'), {
-    title: directory.name,
-    links: directory.children.map(x => ({
-      name: x.name,
-      path: x.relativePath
-    })),
-    details: parseDetailsFile(directory.parent),
+    title: details?.name || directory.name,
+    links: directory.children.map(x => {
+      const childDetails = parseDetailsFile(x.parent);
+      return {
+        name: childDetails?.name || x.name,
+        path: x.relativePath
+      }
+    }),
+    details,
     files: files.map(x => ({
       name: x.name,
       path: path.join(directory.relativePath, x.name)
